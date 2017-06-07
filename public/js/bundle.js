@@ -2428,7 +2428,7 @@ const getUserMedia = require('getusermedia');
 
 getUserMedia({
     video: true,
-    audio: true,
+    audio: true
 }, function (err, stream) {
 
     const Peer = require('simple-peer');

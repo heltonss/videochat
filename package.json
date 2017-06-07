@@ -4,20 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js -o bundle.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.15.3",
     "getusermedia": "^2.0.1",
-    "getusermedia-js": "^1.0.0",
     "simple-peer": "^8.1.0"
   },
   "devDependencies": {
     "http-server": "^0.10.0",
-    "nodemon": "^1.11.0",
-    "server": "^1.0.0-alpha.49"
+    "nodemon": "^1.11.0"
   }
 }
