@@ -19,7 +19,8 @@ getUserMedia({
 
     var key;
     peer.on('signal', function (data) {
-        document.getElementById('myId').value = JSON.stringify(data);
+        // document.getElementById('myId').value = JSON.stringify(data);
+        console.log(data);
         key = data;
     });
 
@@ -28,15 +29,18 @@ getUserMedia({
         key = msg
     })
 
+    socket.on('call', function (msg) {
+        console.log(msg)
+    })
     document.getElementById('connect').addEventListener('click', function () {
         // const otherId = JSON.parse(document.getElementById('otherId').value);
         console.log('resposta', JSON.stringify(key));
         peer.signal(key);
     })
 
-
     document.getElementById('open').addEventListener('click', function () {
         socket.emit('key', key);
+        socket.emit('call', 'alguém esta ligando')
     })
 
     document.getElementById('send').addEventListener('click', function () {
