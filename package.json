@@ -13,7 +13,9 @@
   "dependencies": {
     "express": "^4.15.3",
     "getusermedia": "^2.0.1",
-    "simple-peer": "^8.1.0"
+    "simple-peer": "^8.1.0",
+    "socket.io": "^2.0.2",
+    "socket.io-client": "^2.0.2"
   },
   "devDependencies": {
     "http-server": "^0.10.0",

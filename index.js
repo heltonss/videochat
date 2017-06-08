@@ -1,8 +1,13 @@
 const getUserMedia = require('getusermedia');
+var socket = require('socket.io-client')();
+
+socket.on('connect', function () {
+    console.log('usuário on line!')
+});
 
 getUserMedia({
     video: true,
-    audio: true
+    audio: false
 }, function (err, stream) {
 
     const Peer = require('simple-peer');
@@ -14,12 +19,19 @@ getUserMedia({
 
 
     peer.on('signal', function (data) {
-        document.getElementById('myId').value = JSON.stringify(data)
+        document.getElementById('myId').value = JSON.stringify(data);
+        console.log(JSON.stringify(data, null, ' '));
     });
 
     document.getElementById('connect').addEventListener('click', function () {
         const otherId = JSON.parse(document.getElementById('otherId').value);
         peer.signal(otherId);
+        console.log(JSON.stringify(otherId, null, ' '));
+        socket.emit('key', JSON.stringify(otherId, null, ' '));
+    })
+
+    socket.on('key', function (msg) {
+        console.log('vc recebeu a chave: ', msg);
     })
 
     document.getElementById('send').addEventListener('click', function () {
@@ -28,7 +40,7 @@ getUserMedia({
     })
 
     peer.on('data', function (data) {
-        document.getElementById('box-messages').textContent += data + '\n'
+        document.getElementById('box-messages').textContent += data + '\n';
     })
 
     peer.on('stream', function (stream) {
