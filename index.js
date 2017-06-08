@@ -17,21 +17,26 @@ getUserMedia({
         stream: stream
     });
 
-
+    var key;
     peer.on('signal', function (data) {
         document.getElementById('myId').value = JSON.stringify(data);
-        console.log(JSON.stringify(data, null, ' '));
+        key = data;
     });
 
-    document.getElementById('connect').addEventListener('click', function () {
-        const otherId = JSON.parse(document.getElementById('otherId').value);
-        peer.signal(otherId);
-        console.log(JSON.stringify(otherId, null, ' '));
-        socket.emit('key', JSON.stringify(otherId, null, ' '));
+    socket.on('key', function (msg) {
+        console.log('vc recebeu a chave: ' + JSON.stringify(msg, null, ' '))
+        key = msg
     })
 
-    socket.on('key', function (msg) {
-        console.log('vc recebeu a chave: ', msg);
+    document.getElementById('connect').addEventListener('click', function () {
+        // const otherId = JSON.parse(document.getElementById('otherId').value);
+        console.log('resposta', JSON.stringify(key));
+        peer.signal(key);
+    })
+
+
+    document.getElementById('open').addEventListener('click', function () {
+        socket.emit('key', key);
     })
 
     document.getElementById('send').addEventListener('click', function () {

@@ -6,7 +6,7 @@ const io = require('socket.io')(server);
 io.on('connection', function (socket) {
     console.log('usuário conectado');
     socket.on('key', function (msg) {
-        console.log('essa é a chave >>>' + msg);
+        io.emit('key', msg);
     })
 })
 
